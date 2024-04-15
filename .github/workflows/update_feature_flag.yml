@@ -21,5 +21,5 @@ jobs:
         run: |
             curl -X POST https://api.growthbook.io/api/v1/features \
                 -H "Content-Type: application/json" \
-                -H "Authorization: Bearer $GROWTHBOOK_API_KEY" 
+                -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -d '{ "id": "test-01", "description": "Test connection" }'
