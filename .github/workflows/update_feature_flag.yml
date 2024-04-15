@@ -7,17 +7,19 @@ on:
       - main
   pull_request:
   workflow_dispatch:
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Update Feature Flags
-      env:
-        GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
-      run: |
-          curl -X POST https://api.growthbook.io/api/v1/features \
-               -H "Content-Type: application/json" \
-               -H "Authorization: Bearer $GROWTHBOOK_API_KEY" 
-               -d '{ "id": "test-01", "description": "Test connection" }'
+      - uses: actions/checkout@v3
+      - name: Update Feature Flags
+        env:
+          GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
+        run: |
+            curl -X POST https://api.growthbook.io/api/v1/features \
+                -H "Content-Type: application/json" \
+                -H "Authorization: Bearer $GROWTHBOOK_API_KEY" 
+                -d '{ "id": "test-01", "description": "Test connection" }'
