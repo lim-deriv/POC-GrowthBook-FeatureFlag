@@ -1,5 +1,4 @@
 name: Update Feature Flag
-run-name: Update Feature Flag
 
 on:
   push:
@@ -21,3 +20,10 @@ jobs:
         run: |
           curl https://api.growthbook.io/api/v1/features \
             -u "$GROWTHBOOK_API_KEY:"
+      - name: Update existing Feature Flags
+        env:
+          GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
+        run: |
+          curl -X POST https://api.growthbook.io/api/v1/features/test \
+            -u "$GROWTHBOOK_API_KEY:"
+            -d  '{ "archived": "true" }'
