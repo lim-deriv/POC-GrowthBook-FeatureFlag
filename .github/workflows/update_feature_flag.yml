@@ -19,6 +19,7 @@ jobs:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
         run: |
           curl https://api.growthbook.io/api/v1/features \
+            -H "Content-Type: application/json" \
             -u "$GROWTHBOOK_API_KEY:"
       - name: Update existing Feature Flags
         env:
@@ -26,4 +27,5 @@ jobs:
         run: |
           curl -X POST https://api.growthbook.io/api/v1/features/test \
             -u "$GROWTHBOOK_API_KEY:" \
-            -d  '{ "description": "A cool feature flag" }'
+            -H "Content-Type: application/json" \
+            -d '{"description": "A cool feature flag"}'
