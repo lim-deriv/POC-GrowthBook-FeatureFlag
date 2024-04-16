@@ -36,4 +36,4 @@ jobs:
           curl -X POST https://api.growthbook.io/api/v1/features \
             -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
             -H "Content-Type: application/json" \
-            -d '{ "id": "test-02", "environments": "qa"}'
+            -d '{ "id": "test-02", "owner": "kai.ling@regentmarkets.com", "valueType": "string", "defaultValue": "testing", "environments": {"qa": { "enabled": "true"}}}'
