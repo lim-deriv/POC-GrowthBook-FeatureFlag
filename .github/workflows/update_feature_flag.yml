@@ -26,4 +26,4 @@ jobs:
         run: |
           curl -X POST https://api.growthbook.io/api/v1/features/test \
             -u "$GROWTHBOOK_API_KEY:" \
-            -d  '{ "archived": "true" }'
+            -d  '{ "defaultValue": "true" }'
