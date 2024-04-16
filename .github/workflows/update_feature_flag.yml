@@ -15,11 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Update Feature Flags
+      - name: Get existing Feature Flags
         env:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
         run: |
-            curl -X POST https://api.growthbook.io/api/v1/features \
-                -H "Content-Type: application/json" \
-                -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-                -d '{ "id": "test-01", "description": "try create a new feature from api", "owner": "kai.ling@regentmarkets.com", "valueType": boolean, "defaultValue": "false"}'
+          curl https://api.growthbook.io/api/v1/features \
+            -u "$GROWTHBOOK_API_KEY:"
