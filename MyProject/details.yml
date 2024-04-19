@@ -1,4 +1,4 @@
 user:
-  status: true
-  name: John
-  age: 30
+  status: false
+  name: kath
+  age: 28
