@@ -1,4 +1,4 @@
-person:
+user:
   status: true
   name: John Doe
   age: 30
