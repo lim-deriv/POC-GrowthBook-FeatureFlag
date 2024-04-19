@@ -10,10 +10,13 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  deploy:
+  Feature_Flag:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Get existing config from yml
+        run: |
+          yq eval '. as $item | paths(scalars) | map($item[.]) | select(length == 0) | map(if type == "string" then . else empty end) | join(": ")' ./MyProject/details.yml.yml
       - name: Get existing Feature Flags
         env:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
@@ -25,15 +28,7 @@ jobs:
         env:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
         run: |
-          curl -X POST https://api.growthbook.io/api/v1/features/test \
+          curl -X POST https://api.growthbook.io/api/v1/features/name \
             -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
             -H "Content-Type: application/json" \
-            -d '{"defaultValue": "true"}'
-      - name: create new Feature Flags
-        env:
-          GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
-        run: |
-          curl -X POST https://api.growthbook.io/api/v1/features \
-            -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-            -H "Content-Type: application/json" \
-            -d '{ "id": "test-02", "owner": "kai.ling@regentmarkets.com", "valueType": "string", "defaultValue": "testing", "environments": {"qa": { "enabled": "true"}}}'
+            -d '{"defaultValue": "kath"}'
