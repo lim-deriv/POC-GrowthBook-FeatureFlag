@@ -32,10 +32,8 @@ jobs:
           echo $list
           for feature in $(echo "$list" | jq -r 'keys[]'); do
             value=$(echo "$list" | jq -r ".$feature")
-            echo $feature
-            echo $value
-            # curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
-            #   -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-            #   -H "Content-Type: application/json" \
-            #   -d "{\"defaultValue\": \"$value\"}"
+            curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
+              -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d "{\"defaultValue\": \"$value\"}"
           done
