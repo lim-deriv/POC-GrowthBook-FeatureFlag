@@ -37,3 +37,6 @@ jobs:
               -H "Content-Type: application/json" \
               -d "{\"defaultValue\": \"$value\"}"
           done
+
+          #environment
+          #can check if environment key and to decide whether to enable or disable
