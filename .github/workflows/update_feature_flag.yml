@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Get existing config from yml
         run: |
-          yq -r '.user | to_entries[].value | split(":")[0]' ./MyProject/details.yml
+          yq eval 'to_entries[] | "\(.key):\(.value | tojson)"' ./MyProject/details.yml
       - name: Get existing Feature Flags
         env:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
