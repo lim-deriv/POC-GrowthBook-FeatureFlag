@@ -28,9 +28,10 @@ jobs:
         env:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
         run: |
-          list=$(yq eval 'to_entries[] | "\(.key):\(.value | tojson)"' ./MyProject/details.yml | sed 's/.*{//')
-          echo $list | jq -r 'keys[]
-          # for feature in $(echo "$list" | jq -r 'keys[]'); do
+          list=$(yq eval 'to_entries[] | "\(.key):\(.value | tojson)"' ./MyProject/details.yml)
+          json=$(echo "$input" | sed 's/.*{//')
+          echo $json
+          # for feature in $(echo "$json" | jq -r 'keys[]'); do
           #   value=$(echo "$list" | jq -r ".$feature")
           #   echo $feature
           #   echo $value
