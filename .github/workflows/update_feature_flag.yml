@@ -28,7 +28,7 @@ jobs:
         env:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
         run: |
-          list=$(yq eval 'to_entries[] | "\(.key):\(.value | tojson)"' ./MyProject/details.yml)
+          list=$(yq eval 'to_entries[] | "\(.value | tojson)"' ./MyProject/details.yml)
           echo $list
           keys=$(echo "$list" | awk -F':' '{print $1}')
           echo "$keys"
