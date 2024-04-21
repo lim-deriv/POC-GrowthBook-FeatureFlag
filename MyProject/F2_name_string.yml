@@ -1,4 +1,4 @@
-project:  MyProject #
+project:  MyProject 
 feature: name
 tags:
    - V1
