@@ -39,26 +39,72 @@ jobs:
             echo "QA Value: $qa_value"
             echo "--------------------------"
           done
-      # - name: Get existing Feature Flags
-      #   env:
-      #     GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
-      #   run: |
-      #     curl https://api.growthbook.io/api/v1/features \
-      #       -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-      #       -H "Content-Type: application/json"
-      # - name: Update existing Feature Flags
-      #   env:
-      #     GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
-      #   run: |
-      #     list=$(yq eval 'to_entries[] | "\(.value | tojson)"' ./MyProject/details.yml)
-      #     echo $list
-      #     for feature in $(echo "$list" | jq -r 'keys[]'); do
-      #       value=$(echo "$list" | jq -r ".$feature")
-      #       curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
-      #         -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-      #         -H "Content-Type: application/json" \
-      #         -d "{\"defaultValue\": \"$value\"}"
-      #     done
+      - name: Get existing Feature Flags
+        env:
+          GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
+        run: |
+          curl https://api.growthbook.io/api/v1/features \
+            -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
+            -H "Content-Type: application/json"
+      - name: Update existing Feature Flags
+        env:
+          GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
+        run: |
+          git fetch origin ${{ github.event.before }}
+          changed_yml_files=$(git diff --name-only ${{ github.event.before }} -- ':!.github')
 
-      #     #environment
-      #     #can check if environment key and to decide whether to enable or disable
+          # Iterate over each changed YAML file and print them
+          for file in $changed_yml_files; do
+          
+            project=$(yq eval '.project' ./$file)
+            feature=$(yq eval '.feature' ./$file)
+            default_value=$(yq eval '.default_value' ./$file)
+            tags=$(yq eval '.tags[]' ./$file | jq -R . | jq -s .)
+
+            prod_value=$(yq eval '.environments.prod.value' ./$file)
+            staging_value=$(yq eval '.environments.staging.value' ./$file)
+            qa_value=$(yq eval '.environments.qa.value' ./$file)
+
+            #generate environment datails
+
+              # Extract environments from YAML file
+              environments=$(yq eval 'keys[]' "./$file)
+
+              # Initialize an empty JSON object
+              json_data="{"
+
+              # Loop through each environment
+              for env in $environments; do
+                  # Append environment JSON object to the main JSON data
+                  json_data+="\"$env\": {
+                      \"enabled\": true,
+                      \"rules\": [
+                          { \"type\": \"force\", \"value\": $(yq eval '.environments."$env".value' "$yaml_file") }
+                      ]
+                  },"
+              done
+
+              # Remove trailing comma and close JSON object
+              json_data=${json_data%,*}
+              json_data+="}"
+              echo "$json_data"
+              
+          #   curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
+          #     -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
+          #     -H "Content-Type: application/json" \
+          #     -d {"project": "$projecy",
+          #         "owner": "kath-deriv",
+          #         "defaultValue": "$default_value",
+          #         "environments": {
+          #         "property1": {
+          #         "enabled": true,
+          #         "rules": [],
+          #         "definition": "string",
+          #         "draft": {}
+          #         }
+          #         }
+          #         }
+          # done
+
+          #environment
+          #can check if environment key and to decide whether to enable or disable
