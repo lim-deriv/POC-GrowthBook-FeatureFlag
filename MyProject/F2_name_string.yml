@@ -1,5 +1,6 @@
-project:  MyProject 
+project:  MyProject
 feature: name
+default_value: 'Sam'
 tags:
    - V1
 environments:
