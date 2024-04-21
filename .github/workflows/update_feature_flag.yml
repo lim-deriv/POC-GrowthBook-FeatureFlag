@@ -66,9 +66,9 @@ jobs:
             qa_value=$(yq eval '.environments.qa.value' ./$file)
 
             curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
-              -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-              -H "Content-Type: application/json" \
-              -d "{"defaultValue": \"$default_value\"}"
+                -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
+                -H "Content-Type: application/json" \
+                -d "{\"defaultValue\": \"$default_value\"}"
           done
 
           #environment
