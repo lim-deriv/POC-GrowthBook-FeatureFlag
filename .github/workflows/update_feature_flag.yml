@@ -27,8 +27,8 @@ jobs:
             default_value=$(yq eval '.default_value' ./$file)
             tags=$(yq eval '.tags[]' ./$file | sed 's/- //' | tr '\n' ' ')
             prod_value=$(yq eval '.environments.prod.value' ./$file)
-            staging_value=$(yq eval '.environments.staging.value' .$file)
-            qa_value=$(yq eval '.environments.qa.value' .$file)
+            staging_value=$(yq eval '.environments.staging.value' ./$file)
+            qa_value=$(yq eval '.environments.qa.value' ./$file)
 
             echo "Project: $project"
             echo "Feature: $feature"

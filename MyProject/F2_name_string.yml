@@ -3,6 +3,7 @@ feature: name
 default_value: 'Sam'
 tags:
    - V1
+   - V3
 environments:
   prod:
     value: 'john'
