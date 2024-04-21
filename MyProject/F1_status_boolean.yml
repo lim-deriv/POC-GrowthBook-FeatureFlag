@@ -1,5 +1,6 @@
 project:  MyProject
 feature: status
+default_value: false
 tags:
    - V1
 environments:
