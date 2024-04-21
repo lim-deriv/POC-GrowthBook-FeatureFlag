@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Get existing config from yml
         run: |
-          changed_yml_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ':!.github')
+          changed_yml_files=$(git diff --name-only HEAD ${{ github.event.before }} -- ':!.github')
 
           # Iterate over each changed YAML file and print them
           for file in $changed_yml_files; do
