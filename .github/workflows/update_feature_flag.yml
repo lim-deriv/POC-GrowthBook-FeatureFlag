@@ -68,7 +68,7 @@ jobs:
             #generate environment datails
 
               # Extract environments from YAML file
-              environments=$(yq eval 'keys[]' "./$file)
+              environments=$(yq eval 'keys[]' ./$file)
 
               # Initialize an empty JSON object
               json_data="{"
@@ -88,7 +88,7 @@ jobs:
               json_data=${json_data%,*}
               json_data+="}"
               echo "$json_data"
-              
+
           #   curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
           #     -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
           #     -H "Content-Type: application/json" \
