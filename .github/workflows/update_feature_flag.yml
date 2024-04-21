@@ -65,13 +65,30 @@ jobs:
             staging_value=$(yq eval '.environments.staging.value' ./$file)
             qa_value=$(yq eval '.environments.qa.value' ./$file)
 
-          done
+            #generate environment datails
+
+            # Extract environments from YAML file
+            environments=$(yq eval 'keys[]' ./$file)
+
+            # Initialize an empty JSON object
+            json_data="{"
+
+              # Loop through each environment
+              for env in $environments; do
+                  # Append environment JSON object to the main JSON data
+                  json_data+="\"$env\": {
+                      \"enabled\": true,
+                      \"rules\": [
+                          { \"type\": \"force\", \"value\": $(yq eval '.environments."$env".value' "$yaml_file") }
+                      ]
+                  },"
+              done
 
               # Remove trailing comma and close JSON object
               json_data=${json_data%,*}
               json_data+="}"
               echo "$json_data"
-
+            done
           #   curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
           #     -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
           #     -H "Content-Type: application/json" \
