@@ -17,7 +17,7 @@ jobs:
       - name: Get existing config from yml
         run: |
           git fetch origin ${{ github.event.before }}
-          changed_yml_files=($(git diff --name-only ${{ github.event.before }}))
+          changed_yml_files=$(git diff --name-only ${{ github.event.before }} | grep -E '.github')
 
           # Iterate over each changed YAML file and print them
           for file in $changed_yml_files; do
@@ -26,7 +26,7 @@ jobs:
           project=$(yq eval '.project' ./MyProject/F1_status_boolean.yml)
           feature=$(yq eval '.feature' ./MyProject/F1_status_boolean.yml)
           default_value=$(yq eval '.default_value' ./MyProject/F1_status_boolean.yml)
-          tags=$(yq eval '.tags[]' ./MyProject/F1_status_boolean.yml | sed 's/- //')
+          tags=$(yq eval '.tags[]' ./MyProject/F1_status_boolean.yml | sed 's/- //' | | tr '\n' ' ')
           prod_value=$(yq eval '.environments.prod.value' ./MyProject/F1_status_boolean.yml)
           staging_value=$(yq eval '.environments.staging.value' ./MyProject/F1_status_boolean.yml)
           qa_value=$(yq eval '.environments.qa.value' ./MyProject/F1_status_boolean.yml)
