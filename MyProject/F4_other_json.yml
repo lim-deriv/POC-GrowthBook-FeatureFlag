@@ -1,0 +1,77 @@
+project:  MyProject
+feature: other
+tags:
+   - V1
+environments:
+  prod:
+    value: |
+      {
+        "user_id": "prod123",
+        "username": "john123",
+        "email": "johndoe@example.com",
+        "first_name": "John",
+        "last_name": "Doe",
+        "age": 30,
+        "gender": "male",
+        "address": {
+          "street": "123 Main St",
+          "city": "Anytown",
+          "state": "NY",
+          "zip_code": "12345",
+          "country": "USA"
+        },
+        "phone_numbers": [
+          "+1234567890",
+          "+1987654321"
+        ],
+        "is_active": true,
+        "registration_date": "2024-04-19T12:00:00Z"
+      }
+  staging:
+    value: |
+      {
+        "user_id": "staging123",
+        "username": "kath123",
+        "email": "johndoe@example.com",
+        "first_name": "John",
+        "last_name": "Doe",
+        "age": 30,
+        "gender": "male",
+        "address": {
+          "street": "123 Main St",
+          "city": "Anytown",
+          "state": "NY",
+          "zip_code": "12345",
+          "country": "USA"
+        },
+        "phone_numbers": [
+          "+1234567890",
+          "+1987654321"
+        ],
+        "is_active": true,
+        "registration_date": "2024-04-19T12:00:00Z"
+      }
+  qa:
+    value: |
+      {
+        "user_id": "qa123",
+        "username": "esther123",
+        "email": "johndoe@example.com",
+        "first_name": "John",
+        "last_name": "Doe",
+        "age": 30,
+        "gender": "male",
+        "address": {
+          "street": "123 Main St",
+          "city": "Anytown",
+          "state": "NY",
+          "zip_code": "12345",
+          "country": "USA"
+        },
+        "phone_numbers": [
+          "+1234567890",
+          "+1987654321"
+        ],
+        "is_active": true,
+        "registration_date": "2024-04-19T12:00:00Z"
+      }

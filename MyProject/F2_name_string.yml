@@ -1,0 +1,11 @@
+project:  MyProject
+feature: name
+tags:
+   - V1
+environments:
+  prod:
+    value: 'john'
+  staging:
+    value: 'kath'
+  qa:
+    value: 'esther'

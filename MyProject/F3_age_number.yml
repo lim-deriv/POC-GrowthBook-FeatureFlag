@@ -1,0 +1,11 @@
+project:  MyProject
+feature: age
+tags:
+   - V1
+environments:
+  prod:
+    value: 30
+  staging:
+    value: 20
+  qa:
+    value: 10

@@ -1,0 +1,11 @@
+project:  MyProject
+feature: status
+tags:
+   - V1
+environments:
+  prod:
+    value: false
+  staging:
+    value: false
+  qa:
+    value: true
