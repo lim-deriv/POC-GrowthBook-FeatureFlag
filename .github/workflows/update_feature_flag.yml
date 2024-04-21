@@ -65,23 +65,13 @@ jobs:
             staging_value=$(yq eval '.environments.staging.value' ./$file)
             qa_value=$(yq eval '.environments.qa.value' ./$file)
 
+            curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
+              -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d {"project": "\"$projecy\"",
+                  "owner": "kath-deriv",
+                  "defaultValue": "\"$default_value\""}
           done
-          #   curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
-          #     -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-          #     -H "Content-Type: application/json" \
-          #     -d {"project": "$projecy",
-          #         "owner": "kath-deriv",
-          #         "defaultValue": "$default_value",
-          #         "environments": {
-          #         "property1": {
-          #         "enabled": true,
-          #         "rules": [],
-          #         "definition": "string",
-          #         "draft": {}
-          #         }
-          #         }
-          #         }
-          # done
 
           #environment
           #can check if environment key and to decide whether to enable or disable
