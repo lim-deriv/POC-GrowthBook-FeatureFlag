@@ -17,7 +17,14 @@ jobs:
       - name: Get existing config from yml
         run: |
     
-          eval $(yq eval '. | to_entries | .[] | "export \(.key)=\"\(.value)\""' ./MyProject/F1_status_boolean.yml)
+          project=$(yq eval '.project' ./MyProject/F1_status_boolean.yml)
+          feature=$(yq eval '.feature' ./MyProject/F1_status_boolean.yml)
+          default_value=$(yq eval '.default_value' ./MyProject/F1_status_boolean.yml)
+          tags=$(yq eval '.tags[]' ./MyProject/F1_status_boolean.yml | sed 's/- //')
+          prod_value=$(yq eval '.environments.prod.value' ./MyProject/F1_status_boolean.yml)
+          staging_value=$(yq eval '.environments.staging.value' ./MyProject/F1_status_boolean.yml)
+          qa_value=$(yq eval '.environments.qa.value' ./MyProject/F1_status_boolean.yml)
+
           echo "Project: $project"
           echo "Feature: $feature"
           echo "Default Value: $default_value"
