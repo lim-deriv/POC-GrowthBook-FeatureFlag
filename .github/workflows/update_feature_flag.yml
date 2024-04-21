@@ -15,12 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Get existing config from yml
-        env:
-          CI_COMMIT_BEFORE_SHA: ${{ github.event.before }}
-          CI_COMMIT_SHA: ${{ github.event.after }}
         run: |
-          git fetch origin main
-          changed_yml_files=$(git diff --name-only origin/main | grep -E '.github/')
+          changed_yml_files=$(git diff --name-only ${{ github.event.before }})
 
           # Iterate over each changed YAML file and print them
           for file in $changed_yml_files; do
