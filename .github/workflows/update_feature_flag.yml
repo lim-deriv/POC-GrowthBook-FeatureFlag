@@ -17,7 +17,7 @@ jobs:
       - name: Get existing config from yml
         run: |
           git fetch origin ${{ github.event.before }}
-          changed_yml_files=$(git diff --name-only ${{ github.event.before }} | grep -E '.github')
+          changed_yml_files=($(git diff --name-only ${{ github.event.before }} | grep -E '.github/'))
 
           # Iterate over each changed YAML file and print them
           for file in $changed_yml_files; do
