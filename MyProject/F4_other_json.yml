@@ -1,77 +1,12 @@
 project:  'prj_19g62blv60ujw2'
 feature: other
-default_value: { "user_id":"prod1234", "username":"john1234" }
+default_value: {"user_id":"default123","account":["A","B"]}
 tags:
-   - V1
+   - V3
 environments:
   prod:
-    value: |
-      '{
-        "user_id": "prod123",
-        "username": "john123",
-        "email": "johndoe@example.com",
-        "first_name": "John",
-        "last_name": "Doe",
-        "age": 30,
-        "gender": "male",
-        "address": {
-          "street": "123 Main St",
-          "city": "Anytown",
-          "state": "NY",
-          "zip_code": "12345",
-          "country": "USA"
-        },
-        "phone_numbers": [
-          "+1234567890"
-        ],
-        "is_active": true,
-        "registration_date": "2024-04-19T12:00:00Z"
-      }'
+    value: {"user_id":"prod123","account":["A","B"]}
   staging:
-    value: |
-      {
-        "user_id": "staging123",
-        "username": "kath123",
-        "email": "johndoe@example.com",
-        "first_name": "John",
-        "last_name": "Doe",
-        "age": 30,
-        "gender": "male",
-        "address": {
-          "street": "123 Main St",
-          "city": "Anytown",
-          "state": "NY",
-          "zip_code": "12345",
-          "country": "USA"
-        },
-        "phone_numbers": [
-          "+1234567890",
-          "+1987654321"
-        ],
-        "is_active": true,
-        "registration_date": "2024-04-19T12:00:00Z"
-      }
+    value: {"user_id":"staging123","account":["A","B"]}
   qa:
-    value: |
-      {
-        "user_id": "qa123",
-        "username": "esther123",
-        "email": "johndoe@example.com",
-        "first_name": "John",
-        "last_name": "Doe",
-        "age": 30,
-        "gender": "male",
-        "address": {
-          "street": "123 Main St",
-          "city": "Anytown",
-          "state": "NY",
-          "zip_code": "12345",
-          "country": "USA"
-        },
-        "phone_numbers": [
-          "+1234567890",
-          "+1987654321"
-        ],
-        "is_active": true,
-        "registration_date": "2024-04-19T12:00:00Z"
-      }
+    value: {"user_id":"qa123","account":["A","B"]}

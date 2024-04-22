@@ -3,9 +3,8 @@ name: Update Feature Flag
 on:
   push:
     branch:
-      - main
-  pull_request:
-  workflow_dispatch:
+      - main #only trigger this workflow when the latest configs merge into default branch
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
@@ -46,13 +45,7 @@ jobs:
                 -v \
                 -d "{\"project\": \"$project\", \
                      \"defaultValue\": \"$default_value\", \
-                     \"tags\": $tags
-                     \"environments\": {  \
-                     \"production\": { \"enabled\": true, \"rules\": [] }, \
-                     \"staging\": { \"enabled\": false, \"rules\": [}] }, \
-                     \"qa\": { \"enabled\": false, \"rules\": [] } \
-                    } 
-                     }"
+                     \"tags\": $tags}"
           done
       - name: Update existing Feature Flags's force value
         env:
@@ -67,16 +60,16 @@ jobs:
             # Extract variables
             project=$(yq eval '.project' ./$file)
             feature=$(yq eval '.feature' ./$file)
-            default_value=$(yq eval '.default_value' ./$file)
+            default_value=$(yq eval '.default_value' ./$file | sed 's/"/\\"/g')
             tags=$(yq eval '.tags[]' ./$file | jq -R . | jq -s .)
             
-            prod_value=$(yq eval '.environments.prod.value' ./$file)
+            prod_value=$(yq eval '.environments.prod.value' ./$file | sed 's/"/\\"/g')
             prod_enabled=$(yq eval '.environments.prod.enabled' ./$file)
             
-            staging_value=$(yq eval '.environments.staging.value' ./$file)
+            staging_value=$(yq eval '.environments.staging.value' ./$file | sed 's/"/\\"/g')
             staging_enabled=$(yq eval '.environments.staging.enabled' ./$file)
             
-            qa_value=$(yq eval '.environments.qa.value' ./$file)
+            qa_value=$(yq eval '.environments.qa.value' ./$file | sed 's/"/\\"/g')
             qa_enabled=$(yq eval '.environments.qa.enabled' ./$file)
 
             # update force values on different environment
@@ -88,8 +81,8 @@ jobs:
                      \"tags\": $tags, \
                      \"environments\": {  \
                      \"production\": { \"enabled\": true, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$prod_value\"}] }, \
-                     \"staging\": { \"enabled\": false, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$staging_value\"}] }, \
-                     \"qa\": { \"enabled\": false, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$qa_value\"}] } \
+                     \"staging\": { \"enabled\": true, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$staging_value\"}] }, \
+                     \"qa\": { \"enabled\": true, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$qa_value\"}] } \
                     } 
                     }"
           done

@@ -1,11 +1,12 @@
 project:  MyProject #
 feature: age
+default_value: 1
 tags:
-   - V1
+   - V2
 environments:
   prod:
-    value: 30
-  staging:
-    value: 20
-  qa:
     value: 10
+  staging:
+    value: 5
+  qa:
+    value: 2
