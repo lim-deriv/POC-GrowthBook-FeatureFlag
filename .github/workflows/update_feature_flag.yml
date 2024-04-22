@@ -39,7 +39,7 @@ jobs:
             default_value=$(yq eval '.default_value' ./$file | sed 's/"/\\"/g')
             tags=$(yq eval '.tags[]' ./$file | jq -R . | jq -s .)
 
-            # value as force value
+            # update default variable
             curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \
@@ -47,7 +47,7 @@ jobs:
                 -d "{\"project\": \"$project\", \
                      \"defaultValue\": \"$default_value\", \
                      \"tags\": $tags}"
-
+          done
       - name: Update existing Feature Flags's force value
         env:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
@@ -67,7 +67,7 @@ jobs:
             staging_value=$(yq eval '.environments.staging.value' ./$file)
             qa_value=$(yq eval '.environments.qa.value' ./$file)
 
-            # value as force value
+            # update force values on different environment
             curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \

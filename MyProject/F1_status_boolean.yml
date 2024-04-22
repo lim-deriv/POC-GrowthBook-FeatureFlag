@@ -1,6 +1,6 @@
 project:  'prj_19g62blv60ujw2'
 feature: status
-default_value: true
+default_value: false
 tags:
    - V1
 environments:
