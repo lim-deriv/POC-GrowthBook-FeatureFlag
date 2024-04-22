@@ -25,14 +25,17 @@ jobs:
         env:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
         run: |
+          # Fetches changes from the remote repository
           git fetch origin ${{ github.event.before }}
+
+          # Retrieves a list of YAML files that have been modified between the fetched commit and the current one
           changed_yml_files=$(git diff --name-only ${{ github.event.before }} -- ':!.github')
           echo $changed_yml_files
 
-          # Iterate over each changed YAML file and print them
+          # Iterate over each changed YAML file
           for file in $changed_yml_files; do
             
-            # Extract variables
+            # Extract variables from yml files
             project=$(yq eval '.project' ./$file)
             feature=$(yq eval '.feature' ./$file)
             default_value=$(yq eval '.default_value' ./$file | sed 's/"/\\"/g')
@@ -51,23 +54,26 @@ jobs:
         env:
           GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
         run: |
+          # Fetches changes from the remote repository
           git fetch origin ${{ github.event.before }}
-          changed_yml_files=$(git diff --name-only ${{ github.event.before }} -- ':!.github')
 
-          # Iterate over each changed YAML file and print them
+          # Retrieves a list of YAML files that have been modified between the fetched commit and the current one
+          changed_yml_files=$(git diff --name-only ${{ github.event.before }} -- ':!.github')
+          echo $changed_yml_files
+
+          # Iterate over each changed files excluding any files within the '.github' directory.
           for file in $changed_yml_files; do
             
-            # Extract variables
+            # Extract variables from yml files
             project=$(yq eval '.project' ./$file)
             feature=$(yq eval '.feature' ./$file)
-            default_value=$(yq eval '.default_value' ./$file | sed 's/"/\\"/g')
             tags=$(yq eval '.tags[]' ./$file | jq -R . | jq -s .)
             
             prod_value=$(yq eval '.environments.prod.value' ./$file | sed 's/"/\\"/g')
             staging_value=$(yq eval '.environments.staging.value' ./$file | sed 's/"/\\"/g')
             qa_value=$(yq eval '.environments.qa.value' ./$file | sed 's/"/\\"/g')
 
-            # update force values on different environment
+            # update feature flag force values on different environment
             curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \
