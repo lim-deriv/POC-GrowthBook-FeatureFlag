@@ -58,7 +58,7 @@ jobs:
           
             project=$(yq eval '.project' ./$file)
             feature=$(yq eval '.feature' ./$file)
-            default_value=$(yq eval '.default_value' ./$file)
+            default_value=$(yq eval '.default_value' ./$file | jq -R .)
             tags=$(yq eval '.tags[]' ./$file | jq -R . | jq -s .)
 
             prod_value=$(yq eval '.environments.prod.value' ./$file)
