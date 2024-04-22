@@ -63,9 +63,15 @@ jobs:
             feature=$(yq eval '.feature' ./$file)
             default_value=$(yq eval '.default_value' ./$file)
             tags=$(yq eval '.tags[]' ./$file | jq -R . | jq -s .)
+            
             prod_value=$(yq eval '.environments.prod.value' ./$file)
+            prod_enabled=$(yq eval '.environments.prod.enabled' ./$file)
+            
             staging_value=$(yq eval '.environments.staging.value' ./$file)
+            staging_enabled=$(yq eval '.environments.staging.enabled' ./$file)
+            
             qa_value=$(yq eval '.environments.qa.value' ./$file)
+            qa_enabled=$(yq eval '.environments.qa.enabled' ./$file)
 
             # update force values on different environment
             curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
@@ -75,9 +81,9 @@ jobs:
                      \"defaultValue\": \"$default_value\", \
                      \"tags\": $tags, \
                      \"environments\": {  \
-                     \"production\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$prod_value\"}] }, \
-                     \"staging\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$staging_value\"}] }, \
-                     \"qa\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$qa_value\"}] } \
+                     \"production\": { \"enabled\": $prod_enabled, \"rules\": [{\"type\": \"force\",\"value\": \"$prod_value\"}] }, \
+                     \"staging\": { \"enabled\": $staging_enabled, \"rules\": [{\"type\": \"force\",\"value\": \"$staging_value\"}] }, \
+                     \"qa\": { \"enabled\": qa_enabled, \"rules\": [{\"type\": \"force\",\"value\": \"$qa_value\"}] } \
                     } 
                     }"
           done
