@@ -2,8 +2,7 @@ project:  'prj_19g62blv60ujw2'
 feature: status
 default_value: true
 tags:
-   - V1
-   - V3
+   - ''
 environments:
   prod:
     value: false
