@@ -1,6 +1,6 @@
 project:  MyProject
 feature: other
-default_value: {"user_id": "prod123", "username": "john123"}
+default_value: {"user_id": "prod123", "username": "john12"}
 tags:
    - V1
 environments:
