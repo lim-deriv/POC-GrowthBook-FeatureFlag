@@ -7,6 +7,6 @@ environments:
   prod:
     value: false
   staging:
-    value: false
+    value: true
   qa:
     value: true
