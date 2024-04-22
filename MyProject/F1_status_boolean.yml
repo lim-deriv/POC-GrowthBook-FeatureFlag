@@ -2,11 +2,14 @@ project:  'prj_19g62blv60ujw2'
 feature: status
 default_value: true
 tags:
-   - V3
+   - V1
 environments:
   prod:
-    value: false
+    enabled: false
+    value: true
   staging:
+    enabled: false
     value: true
   qa:
+    enabled: true
     value: true

@@ -29,7 +29,7 @@ jobs:
           git fetch origin ${{ github.event.before }}
           changed_yml_files=$(git diff --name-only ${{ github.event.before }} -- ':!.github')
           echo $changed_yml_files
-          
+
           # Iterate over each changed YAML file and print them
           for file in $changed_yml_files; do
             
@@ -44,47 +44,40 @@ jobs:
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \
                 -v \
-                -d "{\"defaultValue\": \"$default_value\" }"
+                -d "{\"project\": \"$project\", \
+                     \"defaultValue\": \"$default_value\", \
+                     \"tags\": $tags}"
 
-            echo "------------------------"
-     
-          done
+      - name: Update existing Feature Flags's force value
+        env:
+          GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
+        run: |
+          git fetch origin ${{ github.event.before }}
+          changed_yml_files=$(git diff --name-only ${{ github.event.before }} -- ':!.github')
 
-      # - name: Update existing Feature Flags's default value
-      #   env:
-      #     GROWTHBOOK_API_KEY: ${{ secrets.FEATURE_FLAG_API_KEY }}
-      #   run: |
-      #     git fetch origin ${{ github.event.before }}
-      #     changed_yml_files=$(git diff --name-only ${{ github.event.before }} -- ':!.github')
-
-      #     # Iterate over each changed YAML file and print them
-      #     for file in $changed_yml_files; do
+          # Iterate over each changed YAML file and print them
+          for file in $changed_yml_files; do
             
-      #       # Extract variables
-      #       project=$(yq eval '.project' ./$file)
-      #       feature=$(yq eval '.feature' ./$file)
-      #       default_value=$(yq eval '.default_value' ./$file)
-      #       tags=$(yq eval '.tags[]' ./$file | jq -R . | jq -s .)
-      #       prod_value=$(yq eval '.environments.prod.value' ./$file)
-      #       staging_value=$(yq eval '.environments.staging.value' ./$file)
-      #       qa_value=$(yq eval '.environments.qa.value' ./$file)
+            # Extract variables
+            project=$(yq eval '.project' ./$file)
+            feature=$(yq eval '.feature' ./$file)
+            default_value=$(yq eval '.default_value' ./$file)
+            tags=$(yq eval '.tags[]' ./$file | jq -R . | jq -s .)
+            prod_value=$(yq eval '.environments.prod.value' ./$file)
+            staging_value=$(yq eval '.environments.staging.value' ./$file)
+            qa_value=$(yq eval '.environments.qa.value' ./$file)
 
-      #       # # value as force value
-      #       # curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
-      #       #     -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-      #       #     -H "Content-Type: application/json" \
-      #       #     -d "{\"project\": \"$project\", \
-      #       #          \"defaultValue\": \"$default_value\", \
-      #       #          \"tags\": $tags, \
-      #       #          \"environments\": {  \
-      #       #          \"production\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$prod_value\"}] }, \
-      #       #          \"qa\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$qa_value\"}] } \
-      #       #           } }"
-      #       # echo "------------------------"
-      #       # value as force value
-      #       curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
-      #           -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-      #           -H "Content-Type: application/json" \
-      #           -d '{"project": "'"$project"'", "defaultValue": "'"$default_value"'" }'
-      #       echo "------------------------"
-      #     done
+            # value as force value
+            curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
+                -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
+                -H "Content-Type: application/json" \
+                -d "{\"project\": \"$project\", \
+                     \"defaultValue\": \"$default_value\", \
+                     \"tags\": $tags, \
+                     \"environments\": {  \
+                     \"production\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$prod_value\"}] }, \
+                     \"staging\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$staging_value\"}] }, \
+                     \"qa\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$qa_value\"}] } \
+                    } 
+                    }"
+          done
