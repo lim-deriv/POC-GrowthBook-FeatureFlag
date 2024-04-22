@@ -28,8 +28,9 @@ jobs:
         run: |
           git fetch origin ${{ github.event.before }}
           changed_yml_files=$(git diff --name-only ${{ github.event.before }} -- ':!.github')
-
-          # # Iterate over each changed YAML file and print them
+          echo $changed_yml_files
+          
+          # Iterate over each changed YAML file and print them
           for file in $changed_yml_files; do
             
             # Extract variables
