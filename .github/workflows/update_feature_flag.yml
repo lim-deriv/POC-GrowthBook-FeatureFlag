@@ -83,7 +83,7 @@ jobs:
                 -H "Content-Type: application/json" \
                 --data @/dev/stdin<<EOF
                 {"project": "$project", "defaultValue": "$default_value"}
-                EOF
+            EOF
             echo "------------------------"
           done
 
