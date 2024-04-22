@@ -71,7 +71,10 @@ jobs:
                 -d "{\"defaultValue\": \"$project\", \
                      \"defaultValue\": \"$default_value\", \
                      \"tags\": $tags, \
-                     \"environments\": { \"production\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$prod_value\"}] } } }"
+                     \"environments\": {  \
+                     \"production\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$prod_value\"}] }, \
+                     \"qa\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$qa_value\"}] } \
+                      } }"
             echo "------------------------"
           done
 
