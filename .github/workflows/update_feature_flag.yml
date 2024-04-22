@@ -46,7 +46,13 @@ jobs:
                 -v \
                 -d "{\"project\": \"$project\", \
                      \"defaultValue\": \"$default_value\", \
-                     \"tags\": $tags}"
+                     \"tags\": $tags
+                     \"environments\": {  \
+                     \"production\": { \"enabled\": false, \"rules\": [] }, \
+                     \"staging\": { \"enabled\": false, \"rules\": [}] }, \
+                     \"qa\": { \"enabled\": false, \"rules\": [] } \
+                    } 
+                     }"
           done
       - name: Update existing Feature Flags's force value
         env:
