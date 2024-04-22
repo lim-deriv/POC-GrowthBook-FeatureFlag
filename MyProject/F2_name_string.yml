@@ -9,4 +9,4 @@ environments:
   staging:
     value: ''
   qa:
-    value: 'esther'
+    value: ''
