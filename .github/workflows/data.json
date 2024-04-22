@@ -1,5 +1,6 @@
 {
     "defaultValue": {
-        "user_id": "prod123"
+      "theme": "dark",
+      "notifications": true
     }
 }
