@@ -82,8 +82,7 @@ jobs:
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \
                 --data @/dev/stdin<<EOF
-                 {"project": "$project", \
-                  "defaultValue": "$default_value"}
+                {"project": "$project", "defaultValue": "$default_value"}
                 EOF
             echo "------------------------"
           done
