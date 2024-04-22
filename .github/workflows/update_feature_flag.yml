@@ -35,7 +35,7 @@ jobs:
             # Extract variables
             project=$(yq eval '.project' ./$file)
             feature=$(yq eval '.feature' ./$file)
-            default_value=$(yq eval '.default_value' ./$file)
+            default_value=$(yq eval '.default_value' ./$file | jq -c .)
             tags=$(yq eval '.tags[]' ./$file | jq -R . | jq -s .)
             
             echo "default value: $default_value"
