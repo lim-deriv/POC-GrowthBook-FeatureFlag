@@ -2,7 +2,7 @@ project:  MyProject #
 feature: age
 default_value: 1
 tags:
-   - V2
+   - V3
 environments:
   prod:
     value: 10

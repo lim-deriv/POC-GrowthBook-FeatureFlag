@@ -2,7 +2,7 @@ project:  'prj_19g62blv60ujw2'
 feature: other
 default_value: {"user_id":"default123","account":["A","B"]}
 tags:
-   - V3
+   - V4
 environments:
   prod:
     value: {"user_id":"prod123","account":["A","B"]}
