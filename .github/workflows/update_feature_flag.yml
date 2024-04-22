@@ -81,9 +81,9 @@ jobs:
                      \"defaultValue\": \"$default_value\", \
                      \"tags\": $tags, \
                      \"environments\": {  \
-                     \"production\": { \"enabled\": $prod_enabled, \"rules\": [{\"type\": \"force\",\"value\": \"$prod_value\"}] }, \
-                     \"staging\": { \"enabled\": $staging_enabled, \"rules\": [{\"type\": \"force\",\"value\": \"$staging_value\"}] }, \
-                     \"qa\": { \"enabled\": $qa_enabled, \"rules\": [{\"type\": \"force\",\"value\": \"$qa_value\"}] } \
+                     \"production\": { \"enabled\": false, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$prod_value\"}] }, \
+                     \"staging\": { \"enabled\": false, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$staging_value\"}] }, \
+                     \"qa\": { \"enabled\": false, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$qa_value\"}] } \
                     } 
                     }"
           done
