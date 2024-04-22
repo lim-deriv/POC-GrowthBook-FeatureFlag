@@ -5,7 +5,7 @@ tags:
    - V1
 environments:
   prod:
-    value: 'john'
+    value: 'johnn'
   staging:
     value: 'kath'
   qa:
