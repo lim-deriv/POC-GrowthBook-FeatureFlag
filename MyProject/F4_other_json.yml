@@ -17,8 +17,7 @@ default_value: |
       "+1234567890",
       "+1987654321"
     ],
-    "is_active": true,
-    "registration_date": "2024-04-19T12:00:00Z"
+    "is_active": true
   }
 tags:
    - V1

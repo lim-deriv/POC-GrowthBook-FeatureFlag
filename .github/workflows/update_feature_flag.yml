@@ -82,7 +82,7 @@ jobs:
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \
                 -d "{\"defaultValue\": \"$project\", \
-                     \"defaultValue\": \"$default_value\", \
+                     \"defaultValue\": $default_value, \
                      \"tags\": $tags }"
             echo "------------------------"
           done
