@@ -1,6 +1,6 @@
 project:  MyProject
 feature: other
-default_value:  |
+default_value: |
   {
     "user_id": "prod123",
     "username": "john123",
