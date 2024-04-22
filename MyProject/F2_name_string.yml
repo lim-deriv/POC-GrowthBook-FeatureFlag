@@ -3,7 +3,7 @@ feature: name
 default_value: 'May'
 tags:
    - V1
-   - V3
+   - V2
 environments:
   prod:
     value: 'john'

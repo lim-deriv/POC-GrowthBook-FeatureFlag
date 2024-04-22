@@ -3,7 +3,7 @@ feature: status
 default_value: true
 tags:
    - V1
-   - V2
+   - V3
 environments:
   prod:
     value: false
