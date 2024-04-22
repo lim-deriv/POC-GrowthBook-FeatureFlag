@@ -25,7 +25,7 @@ environments:
   prod:
     value: |
       {
-        "user_id": "prod123",
+        "user_id": "prod12",
         "username": "john123",
         "email": "johndoe@example.com",
         "first_name": "John",
