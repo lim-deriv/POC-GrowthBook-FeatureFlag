@@ -65,10 +65,16 @@ jobs:
             staging_value=$(yq eval '.environments.staging.value' ./$file)
             qa_value=$(yq eval '.environments.qa.value' ./$file)
 
+
+            data={}
             curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \
-                -d "{\"defaultValue\": \"$project\",\"defaultValue\": \"$default_value\", \"tags\": $tags}"
+                -d "{\"defaultValue\": \"$project\", \
+                     \"defaultValue\": \"$default_value\", \
+                     \"tags\": $tags, \
+                     \"environments\": { \"production\":{\"enabled\": true,\"rules\": [{"type":"force","value":"$prod_value"}]}}
+                     }"
             echo "------------------------"
           done
 
