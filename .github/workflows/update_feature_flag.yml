@@ -65,16 +65,25 @@ jobs:
             staging_value=$(yq eval '.environments.staging.value' ./$file)
             qa_value=$(yq eval '.environments.qa.value' ./$file)
 
+            # # value as force value
+            # curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
+            #     -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
+            #     -H "Content-Type: application/json" \
+            #     -d "{\"defaultValue\": \"$project\", \
+            #          \"defaultValue\": \"$default_value\", \
+            #          \"tags\": $tags, \
+            #          \"environments\": {  \
+            #          \"production\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$prod_value\"}] }, \
+            #          \"qa\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$qa_value\"}] } \
+            #           } }"
+            # echo "------------------------"
+            # value as force value
             curl -X POST "https://api.growthbook.io/api/v1/features/$feature" \
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \
                 -d "{\"defaultValue\": \"$project\", \
                      \"defaultValue\": \"$default_value\", \
-                     \"tags\": $tags, \
-                     \"environments\": {  \
-                     \"production\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$prod_value\"}] }, \
-                     \"qa\": { \"enabled\": true, \"rules\": [{\"type\": \"force\",\"value\": \"$qa_value\"}] } \
-                      } }"
+                     \"tags\": $tags }"
             echo "------------------------"
           done
 

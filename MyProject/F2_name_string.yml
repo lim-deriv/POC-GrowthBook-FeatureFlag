@@ -7,6 +7,6 @@ environments:
   prod:
     value: 'john'
   staging:
-    value: ''
+    value: 'kath'
   qa:
-    value: ''
+    value: 'esther'
