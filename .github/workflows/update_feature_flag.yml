@@ -45,7 +45,7 @@ jobs:
             curl -X POST "https://api.growthbook.io/api/v1/features/other" \
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \
-                -d "{\"defaultValue\": '{"user_id": "prod124", "username": "john124"}' }"
+                -d @data.json
             echo "------------------------"
      
           # done
