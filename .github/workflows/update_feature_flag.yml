@@ -48,7 +48,7 @@ jobs:
                      \"defaultValue\": \"$default_value\", \
                      \"tags\": $tags
                      \"environments\": {  \
-                     \"production\": { \"enabled\": false, \"rules\": [] }, \
+                     \"production\": { \"enabled\": true, \"rules\": [] }, \
                      \"staging\": { \"enabled\": false, \"rules\": [}] }, \
                      \"qa\": { \"enabled\": false, \"rules\": [] } \
                     } 
@@ -87,7 +87,7 @@ jobs:
                      \"defaultValue\": \"$default_value\", \
                      \"tags\": $tags, \
                      \"environments\": {  \
-                     \"production\": { \"enabled\": false, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$prod_value\"}] }, \
+                     \"production\": { \"enabled\": true, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$prod_value\"}] }, \
                      \"staging\": { \"enabled\": false, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$staging_value\"}] }, \
                      \"qa\": { \"enabled\": false, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$qa_value\"}] } \
                     } 
