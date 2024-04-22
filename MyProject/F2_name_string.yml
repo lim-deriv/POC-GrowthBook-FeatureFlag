@@ -1,12 +1,12 @@
 project:  'prj_19g62blv60ujw2'
 feature: name
-default_value: 'Ann'
+default_value: 'jane'
 tags:
    - V2
 environments:
   prod:
-    value: 'john'
-  staging:
     value: 'kath'
+  staging:
+    value: 'john'
   qa:
-    value: 'esther'
+    value: 'max'

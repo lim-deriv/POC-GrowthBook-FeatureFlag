@@ -1,12 +1,12 @@
 project:  'prj_19g62blv60ujw2'
 feature: other
-default_value: {"user_id":"default123","account":["A","B"]}
+default_value: {"user_id":"default123","account":["A"]}
 tags:
    - V4
 environments:
   prod:
     value: {"user_id":"prod123","account":["A","B"]}
   staging:
-    value: {"user_id":"staging123","account":["A","B"]}
+    value: {"user_id":"staging123","account":["A","B", "C"]}
   qa:
-    value: {"user_id":"qa123","account":["A","B"]}
+    value: {"user_id":"qa123","account":["A","B","D"]}

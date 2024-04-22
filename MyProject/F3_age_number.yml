@@ -1,12 +1,12 @@
 project:  'prj_19g62blv60ujw2'
 feature: age
-default_value: 1
+default_value: 5
 tags:
    - V3
 environments:
   prod:
-    value: 11
+    value: 28
   staging:
-    value: 22
+    value: 27
   qa:
-    value: 33
+    value: 8
