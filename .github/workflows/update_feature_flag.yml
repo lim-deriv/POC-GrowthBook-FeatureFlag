@@ -42,9 +42,10 @@ jobs:
             
 
             # value as force value
-            curl -X POST -d "@data.json" "https://api.growthbook.io/api/v1/features/other" \
+            curl -X POST "https://api.growthbook.io/api/v1/features/other" \
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
-                -H "Content-Type: application/json" 
+                -H "Content-Type: application/json" \
+                -d "@./data.json"
             echo "------------------------"
      
           # done
