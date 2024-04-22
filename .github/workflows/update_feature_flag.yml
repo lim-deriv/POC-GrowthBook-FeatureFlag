@@ -77,8 +77,6 @@ jobs:
                 -H "Authorization: Bearer $GROWTHBOOK_API_KEY" \
                 -H "Content-Type: application/json" \
                 -d "{\"project\": \"$project\", \
-                     \"defaultValue\": \"$default_value\", \
-                     \"tags\": $tags, \
                      \"environments\": {  \
                      \"production\": { \"enabled\": true, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$prod_value\"}] }, \
                      \"staging\": { \"enabled\": true, \"rules\": [{\"enabled\": false, \"type\": \"force\",\"value\": \"$staging_value\"}] }, \
