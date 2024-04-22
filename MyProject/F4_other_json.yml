@@ -40,8 +40,7 @@ environments:
           "country": "USA"
         },
         "phone_numbers": [
-          "+1234567890",
-          "+1987654321"
+          "+1234567890"
         ],
         "is_active": true,
         "registration_date": "2024-04-19T12:00:00Z"
