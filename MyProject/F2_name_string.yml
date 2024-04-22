@@ -2,7 +2,7 @@ project:  'prj_19g62blv60ujw2'
 feature: name
 default_value: 'May'
 tags:
-   - V1
+   - V2
 environments:
   prod:
     value: 'johnn'
