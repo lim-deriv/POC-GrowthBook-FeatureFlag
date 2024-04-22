@@ -5,8 +5,8 @@ tags:
    - V3
 environments:
   prod:
-    value: 10
+    value: 11
   staging:
-    value: 5
+    value: 22
   qa:
-    value: 2
+    value: 33
